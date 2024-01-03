@@ -1,11 +1,13 @@
 package org.rean.crud.controller;
 
+import org.rean.crud.exception.NotFoundExceptionClass;
+import org.rean.crud.model.Users;
 import org.rean.crud.model.dto.UserDto;
 import org.rean.crud.model.request.UserRequest;
 import org.rean.crud.model.response.ApiResponse;
 import org.rean.crud.service.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,4 +33,46 @@ public class UserController {
                 .build();
 
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> getAllUser(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "5") Integer pageSize
+    ){
+        return ResponseEntity.ok().body(userService.getAlUsers(pageNo, pageSize));
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<?> getUserById(@PathVariable("id") Integer id){
+        var findUser = userService.getUserById(id);
+        if (findUser != null){
+            return ApiResponse.<UserDto>builder()
+                    .message("User was found successfully")
+                    .status(HttpStatus.OK)
+                    .payload(findUser)
+                    .build();
+        } else {
+            throw new NotFoundExceptionClass(("User not found"));
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Integer id){
+        userService.deleteUserById(id);
+        ApiResponse<UserDto> response = ApiResponse.<UserDto>builder()
+                .message("Delete successfully")
+                .status(HttpStatus.OK)
+                .payload(null)
+                .build();
+        return ResponseEntity.ok().body(response);
+    }
+
+//    @PutMapping("/{id}")
+//    public ApiResponse<?> updateUserById(@RequestBody UserRequest userRequest, @PathVariable("id") Integer id){
+//        if (userRequest == null || userRequest.getName() == null || userRequest.getRole() == null){
+//            throw new IllegalArgumentException("User name can not be blank");
+//        }
+//        var payload = userService.updateUserById(userRequest,id);
+//
+//    }
 }
