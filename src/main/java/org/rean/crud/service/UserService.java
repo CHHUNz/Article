@@ -6,6 +6,7 @@ import org.rean.crud.model.request.UserRequest;
 import org.rean.crud.model.response.PageResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
     UserDto addUser(UserRequest userRequest);
@@ -14,10 +15,10 @@ public interface UserService {
 
     PageResponse<List<UserDto>> getAlUsers(Integer pageNo, Integer pageSize);
 
-    UserDto getUserById(Integer id);
+    UserDto getUserById(UUID id);
 
-    void deleteUserById(Integer id);
+    void deleteUserById(UUID id);
 
-    UserDto updateUserById(UserRequest userRequest, Integer id);
+    UserDto updateUserById(UserRequest userRequest, UUID id);
 
 }

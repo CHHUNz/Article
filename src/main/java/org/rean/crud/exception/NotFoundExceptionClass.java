@@ -1,7 +1,7 @@
 package org.rean.crud.exception;
 
-public class NotFoundExceptionClass extends RuntimeException{
-    public NotFoundExceptionClass(String msg){
-        super(msg);
+public class NotFoundExceptionClass extends RuntimeException {
+    public NotFoundExceptionClass(String message) {
+        super(message);
     }
 }

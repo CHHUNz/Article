@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -51,18 +52,18 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDto getUserById(Integer id) {
+    public UserDto getUserById(UUID id) {
         return userRepository.findById(id).get().toDto();
     }
 
     @Override
-    public void deleteUserById(Integer id) {
+    public void deleteUserById(UUID id) {
         Users users = userRepository.findById(id).orElseThrow(()-> new NotFoundExceptionClass("Id not found"));
         userRepository.deleteById(users.getId());
     }
 
     @Override
-    public UserDto updateUserById(UserRequest userRequest, Integer id) {
+    public UserDto updateUserById(UserRequest userRequest, UUID id) {
         Optional<Users> optionalUser = Optional.ofNullable(userRepository.findById(id).orElseThrow(()->new NotFoundExceptionClass("there is no data")));
         if (optionalUser.isPresent()){
             Users users = optionalUser.get();

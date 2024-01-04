@@ -13,7 +13,7 @@ public class UserRequest {
     private String role;
 
     public Users toEntity(){
-        return new Users(0, this.name, this.role);
+        return new Users(null, this.name, this.role);
     }
 
 }

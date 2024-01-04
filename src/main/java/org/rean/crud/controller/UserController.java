@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/v1/users")
 public class UserController {
@@ -43,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<?> getUserById(@PathVariable("id") Integer id){
+    public ApiResponse<?> getUserById(@PathVariable("id") UUID id){
         var findUser = userService.getUserById(id);
         if (findUser != null){
             return ApiResponse.<UserDto>builder()
@@ -57,7 +59,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer id){
+    public ResponseEntity<?> deleteById(@PathVariable UUID id){
         userService.deleteUserById(id);
         ApiResponse<UserDto> response = ApiResponse.<UserDto>builder()
                 .message("Delete successfully")
@@ -67,12 +69,16 @@ public class UserController {
         return ResponseEntity.ok().body(response);
     }
 
-//    @PutMapping("/{id}")
-//    public ApiResponse<?> updateUserById(@RequestBody UserRequest userRequest, @PathVariable("id") Integer id){
-//        if (userRequest == null || userRequest.getName() == null || userRequest.getRole() == null){
-//            throw new IllegalArgumentException("User name can not be blank");
-//        }
-//        var payload = userService.updateUserById(userRequest,id);
-//
-//    }
+    @PutMapping("/{id}")
+    public ApiResponse<?> updateUserById(@RequestBody UserRequest userRequest, @PathVariable("id") UUID id){
+        if (userRequest == null || userRequest.getName() == null || userRequest.getRole() == null){
+            throw new IllegalArgumentException("User name can not be blank");
+        }
+        var payload = userService.updateUserById(userRequest,id);
+        return ApiResponse.<UserDto>builder()
+                .message("update successfully")
+                .status(HttpStatus.OK)
+                .payload(payload)
+                .build();
+    }
 }

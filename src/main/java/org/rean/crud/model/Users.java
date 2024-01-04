@@ -7,15 +7,18 @@ import lombok.NoArgsConstructor;
 import org.apache.catalina.User;
 import org.rean.crud.model.dto.UserDto;
 
+import java.util.List;
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
-    private int id;
+    private UUID id;
 
     @Column(name = "user_name")
     private String username;
@@ -23,7 +26,10 @@ public class Users {
     @Column(name = "user_role")
     private String role;
 
-    public Users(int id, String name, String role){
+    @OneToMany(mappedBy = "users")
+    private List<BookMark> bookmarks;
+
+    public Users(UUID id, String name, String role){
         this.id=id;
         this.username=name;
         this.role=role;
