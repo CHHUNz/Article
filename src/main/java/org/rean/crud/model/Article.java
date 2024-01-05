@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rean.crud.model.dto.ArticleDto;
+import org.rean.crud.model.dto.BookMarkDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -54,7 +55,7 @@ public class Article {
         this.categories = categories;
     }
 
-    public ArticleDto toDto(){
+    public BookMarkDto toDto(){
         return new ArticleDto(this.id, this.title, this.title, this.published, this.user.toDto(), this.categories.stream().map(Categories::toDto).collect(Collectors.toList()));
     }
 }
