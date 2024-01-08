@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.rean.crud.model.request.CommentRequest;
 import org.rean.crud.service.CommentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -23,6 +21,11 @@ public class CommentController {
     @PostMapping("")
     public ResponseEntity<?> createComment(UUID id, CommentRequest commentRequest){
         return ResponseEntity.ok().body(commentService.createComment(id, commentRequest));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getAllCommentInArticle(@PathVariable("id") UUID id){
+        return ResponseEntity.ok().body(commentService.getAllCommentInArticle(id));
     }
 
 }
