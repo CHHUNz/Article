@@ -20,4 +20,12 @@ public class BookmarkController {
     public ResponseEntity<?> createBookmark(@PathVariable("id") UUID id, @RequestBody BookmarkRequest bookmarkRequest){
         return ResponseEntity.ok().body(bookmarkService.CreateBookmark(id, bookmarkRequest));
     }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getAllBookmarkByUserId(@PathVariable("id") UUID id,
+                                                    @RequestParam(defaultValue = "0") Integer pageNo,
+                                                    @RequestParam(defaultValue = "5") Integer pageSize){
+        return ResponseEntity.ok().body(bookmarkService.getAllBookMark(id, pageNo, pageSize));
+
+    }
 }

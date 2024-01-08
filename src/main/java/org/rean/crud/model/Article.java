@@ -6,7 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.rean.crud.model.dto.ArticleDto;
 import org.rean.crud.model.dto.BookMarkDto;
+import org.rean.crud.model.dto.CommentDto;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -46,6 +49,9 @@ public class Article {
     @OneToMany(mappedBy = "article")
     private List<BookMark> bookMarks;
 
+    @OneToMany(mappedBy = "articles", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Comment> comments = new ArrayList<>();
+
     public Article(UUID id, String title, String description, Boolean published, Users user, List<Categories> categories) {
         this.id = id;
         this.title = title;
@@ -55,7 +61,7 @@ public class Article {
         this.categories = categories;
     }
 
-    public BookMarkDto toDto(){
-        return new ArticleDto(this.id, this.title, this.title, this.published, this.user.toDto(), this.categories.stream().map(Categories::toDto).collect(Collectors.toList()));
+    public ArticleDto toDto(){
+        return new ArticleDto(this.id, this.title, this.title, this.published, this.user.toDto(), this.categories.stream().map(Categories::toDto).collect(Collectors.toList()), this.comments.stream().map(Comment::toDto).collect(Collectors.toList()));
     }
 }
