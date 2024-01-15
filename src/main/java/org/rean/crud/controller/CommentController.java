@@ -23,9 +23,9 @@ public class CommentController {
         return ResponseEntity.ok().body(commentService.createComment(id, commentRequest));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getAllCommentInArticle(@PathVariable("id") UUID id){
-        return ResponseEntity.ok().body(commentService.getAllCommentInArticle(id));
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<?> getAllCommentInArticle(@PathVariable("id") UUID id){
+//        return ResponseEntity.ok().body(commentService.getAllCommentInArticle(id));
+//    }
 
 }

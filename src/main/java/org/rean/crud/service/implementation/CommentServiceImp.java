@@ -40,15 +40,15 @@ public class CommentServiceImp implements CommentService {
                 .build();
     }
 
-    @Override
-    public ApiResponse<List<CommentDto>> getAllCommentInArticle(UUID id) {
-        Article article = articleRepository.findById(id).orElseThrow(()-> new NotFoundExceptionClass("Article not found"));
-        return ApiResponse.<List<CommentDto>>builder()
-                .message("Get all comment in article Id : " + article.getId())
-                .status(HttpStatus.OK)
-                .payload(commentRepository.findAllByArticleId(article.getId()).stream().map(Comment::toDto).collect(Collectors.toList()))
-                .build();
-    }
+//    @Override
+//    public ApiResponse<List<CommentDto>> getAllCommentInArticle(UUID id) {
+//        Article article = articleRepository.findById(id).orElseThrow(()-> new NotFoundExceptionClass("Article not found"));
+//        return ApiResponse.<List<CommentDto>>builder()
+//                .message("Get all comment in article Id : " + article.getId())
+//                .status(HttpStatus.OK)
+//                .payload(commentRepository.findAllByArticleId(article.getId()).stream().map(Comment::toDto).collect(Collectors.toList()))
+//                .build();
+//    }
 
 
 }

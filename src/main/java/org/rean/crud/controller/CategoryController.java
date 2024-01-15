@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/categories")
@@ -36,12 +36,12 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategoryById(UUID id){
+    public ResponseEntity<?> deleteCategoryById(@PathVariable("id") UUID id){
         return ResponseEntity.ok().body(categoryService.deleteCategoryById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCategoryById(UUID id, CategoryRequest categoryRequest){
+    public ResponseEntity<?> updateCategoryById(@PathVariable("id") UUID id, @RequestBody CategoryRequest categoryRequest){
         return ResponseEntity.ok().body(categoryService.updateCategoryById(id, categoryRequest));
     }
 

@@ -10,5 +10,5 @@ import java.util.UUID;
 
 public interface CommentService {
     ApiResponse<CommentDto> createComment(UUID articleId, CommentRequest commentRequest);
-    ApiResponse<List<CommentDto>> getAllCommentInArticle(UUID id);
+//    ApiResponse<List<CommentDto>> getAllCommentInArticle(UUID id);
 }
